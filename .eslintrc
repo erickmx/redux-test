@@ -1,0 +1,70 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended",
+    "airbnb",
+    "prettier",
+    "prettier/babel",
+    "prettier/react",
+    "prettier/standard",
+    "react-app"
+  ],
+  "plugins": [
+    "prettier",
+    "react",
+    "import",
+    "module-resolver",
+    "jsx-a11y",
+    "react-hooks"
+  ],
+  "parser": "babel-eslint",
+  "settings": {
+    "import/parser": "babel-eslint",
+    "import/resolver": {
+      "node": {},
+      "babel-module": {
+        "root": ["./src"],
+        "alias": {}
+      }
+    }
+  },
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "ecmaFeatures": {
+      "spread": true,
+      "experimentalObjectRestSpread": true,
+      "legacyDecorators": true,
+      "jsx": true
+    }
+  },
+  "rules": {
+    "array-bracket-spacing": "off",
+    "object-curly-spacing": "off",
+    "quotes": ["off", "double"],
+    "comma-dangle": "off",
+    "camelcase": "off",
+    "no-restricted-modules": "off",
+    "no-unused-expressions": "error",
+    "no-unused-vars": "error",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "module-resolver/use-alias": 2,
+    "consistent-return": "off",
+    "arrow-parens": "off",
+    "operator-linebreak": "off",
+    "prettier/prettier": "error",
+    "import/no-cycle": "off",
+    "no-underscore-dangle": "off",
+    "jsx-a11y/anchor-is-valid": "warn",
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": "warn"
+  }
+}

@@ -1,0 +1,3 @@
+serviceWorker.js
+/scripts/*
+/node_modules/*
