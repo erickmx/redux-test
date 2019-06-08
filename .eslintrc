@@ -27,7 +27,8 @@
       "babel-module": {
         "root": ["./src"],
         "alias": {
-          "@components": "./src/components"
+          "@components": "./src/components",
+          "@actions": "./store/actions"
         }
       }
     }

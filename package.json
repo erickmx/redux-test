@@ -51,6 +51,7 @@
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.1",
+    "redux-immutable-state-invariant": "^2.1.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
@@ -139,7 +140,8 @@
             "./src"
           ],
           "alias": {
-            "@components": "./src/components"
+            "@components": "./src/components",
+            "@actions": "./src/store/actions"
           }
         }
       ]
