@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { func, arrayOf, shape, string } from "prop-types";
+import { func, arrayOf, shape, string, objectOf } from "prop-types";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as courseActions from "@actions/courseActions";
 
@@ -19,7 +20,9 @@ class CoursesPage extends Component {
   handleSubmit = ev => {
     ev.preventDefault();
     const {
-      props: { createCourse },
+      props: {
+        actions: { createCourse }
+      },
       state: { course }
     } = this;
     createCourse(course);
@@ -54,12 +57,12 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createCourse: course => dispatch(courseActions.createCourse(course))
+    actions: bindActionCreators(courseActions, dispatch)
   };
 };
 
 CoursesPage.propTypes = {
-  createCourse: func.isRequired,
+  actions: objectOf(func.isRequired).isRequired,
   courses: arrayOf(
     shape({
       title: string.isRequired
