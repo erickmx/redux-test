@@ -26,7 +26,9 @@
       "node": {},
       "babel-module": {
         "root": ["./src"],
-        "alias": {}
+        "alias": {
+          "@components": "./src/components"
+        }
       }
     }
   },
