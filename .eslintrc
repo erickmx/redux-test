@@ -30,7 +30,8 @@
           "@components": "./src/components",
           "@actions": "./src/store/actions",
           "@services": "./src/services",
-          "@utils": "./src/utils"
+          "@utils": "./src/utils",
+          "@tools": "./tools"
         }
       }
     }

@@ -8,7 +8,7 @@ export const getCourses = () => {
     .catch(handleErrors);
 };
 
-export const saveCourses = course => {
+export const saveCourse = course => {
   const { id } = course;
   return fetch(`${BASE_URL}/${id || ""}`, {
     method: id ? "PUT" : "POST",

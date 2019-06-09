@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { func, arrayOf, shape, string, objectOf } from "prop-types";
+import { func, arrayOf, shape, string, objectOf, number } from "prop-types";
+import { Redirect } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as courseActions from "@actions/courseActions";
@@ -7,6 +8,10 @@ import * as authorActions from "@actions/authorActions";
 import CourseList from "./CourseList";
 
 class CoursesPage extends Component {
+  state = {
+    redirectToAddCoursePage: false
+  };
+
   componentDidMount() {
     const {
       actions: { loadCourses, loadAuthors },
@@ -29,11 +34,25 @@ class CoursesPage extends Component {
     }
   }
 
+  handleClick = () => {
+    this.setState({ redirectToAddCoursePage: true });
+  };
+
   render() {
     const { courses } = this.props;
+    const { redirectToAddCoursePage } = this.state;
     return (
       <>
+        {redirectToAddCoursePage && <Redirect to="/course" />}
         <h2>Courses</h2>
+        <button
+          style={{ marginBottom: 20 }}
+          className="btn btn-primary add-course"
+          onClick={this.handleClick}
+          type="button"
+        >
+          Add Course
+        </button>
         <CourseList courses={courses} />
       </>
     );
@@ -66,10 +85,20 @@ const mapDispatchToProps = dispatch => {
 
 CoursesPage.propTypes = {
   actions: objectOf(func.isRequired).isRequired,
-  authors: objectOf(func.isRequired).isRequired,
+  authors: arrayOf(
+    shape({
+      id: number.isRequired,
+      name: string.isRequired
+    }).isRequired
+  ).isRequired,
   courses: arrayOf(
     shape({
-      title: string.isRequired
+      id: number.isRequired,
+      slug: string.isRequired,
+      title: string.isRequired,
+      authorId: number.isRequired,
+      category: string.isRequired,
+      authorName: string.isRequired
     }).isRequired
   ).isRequired
 };
