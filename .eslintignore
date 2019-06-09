@@ -1,3 +1,4 @@
 serviceWorker.js
 /scripts/*
 /node_modules/*
+/tools/*
