@@ -28,7 +28,9 @@
         "root": ["./src"],
         "alias": {
           "@components": "./src/components",
-          "@actions": "./store/actions"
+          "@actions": "./src/store/actions",
+          "@services": "./src/services",
+          "@utils": "./src/utils"
         }
       }
     }

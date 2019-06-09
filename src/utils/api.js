@@ -13,6 +13,7 @@ export const handleResponses = async response => {
 };
 
 export const handleErrors = error => {
+  // eslint-disable-next-line no-console
   console.error(`Api call failled: ${error}`);
   throw error;
 };

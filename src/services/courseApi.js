@@ -1,6 +1,6 @@
-import { handleResponses, handleErrors } from "../utils/api";
+import { handleResponses, handleErrors } from "@utils/api";
 
-const BASE_URL = `${process.env.API_URL}/courses`;
+const BASE_URL = `http://localhost:3001/courses`;
 
 export const getCourses = () => {
   return fetch(BASE_URL)

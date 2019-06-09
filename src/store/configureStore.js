@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import reduxImmutableStateInvariant from "redux-immutable-state-invariant";
+import thunk from "redux-thunk";
 import rooReducer from "./reducers";
 
 const configureStore = initialState => {
@@ -9,7 +10,7 @@ const configureStore = initialState => {
   return createStore(
     rooReducer,
     initialState,
-    composeEnhacers(applyMiddleware(reduxImmutableStateInvariant()))
+    composeEnhacers(applyMiddleware(thunk, reduxImmutableStateInvariant()))
   );
 };
 
