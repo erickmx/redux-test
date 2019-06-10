@@ -2,7 +2,8 @@ import {
   CREATE_COURSE,
   LOAD_COURSES_SUCCESS,
   CREATE_COURSE_SUCCESS,
-  UPDATE_COURSE_SUCCESS
+  UPDATE_COURSE_SUCCESS,
+  DELETE_COURSE_OPTIMISTIC
 } from "../types/coursesTypes";
 
 const initialState = [];
@@ -18,6 +19,8 @@ const courseReducer = (state = initialState, action) => {
       );
     case LOAD_COURSES_SUCCESS:
       return action.courses;
+    case DELETE_COURSE_OPTIMISTIC:
+      return state.filter(course => course.id !== action.course.id);
     default:
       return state;
   }

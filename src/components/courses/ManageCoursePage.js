@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import {
   func,
   arrayOf,
@@ -8,10 +10,10 @@ import {
   objectOf,
   any
 } from "prop-types";
-import { connect } from "react-redux";
 import * as courseActions from "@actions/courseActions";
 import * as authorActions from "@actions/authorActions";
 import { newCourse } from "@tools/mockData";
+import { Spinner } from "@components";
 import CourseForm from "./CourseForm";
 
 const ManageCoursePage = ({
@@ -24,6 +26,7 @@ const ManageCoursePage = ({
   course
 }) => {
   const [courseState, setCourse] = useState({ ...course });
+  const [savingState, setSaving] = useState(false);
   const [errorsState, setErrors] = useState({});
 
   console.log("====================================");
@@ -57,19 +60,42 @@ const ManageCoursePage = ({
     }));
   };
 
+  const isValidForm = () => {
+    const { title, authorId, category } = courseState;
+    const newErrors = {};
+    if (!title) newErrors.title = "Title is Required";
+    if (!authorId) newErrors.author = "Author is Required";
+    if (!category) newErrors.category = "Category is Required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
-    saveCourse(courseState).then(() => {
-      history.push("/courses");
-    });
+    if (!isValidForm()) return;
+
+    setSaving(true);
+    saveCourse(courseState)
+      .then(() => {
+        toast.success("Course Saved");
+        history.push("/courses");
+      })
+      .catch(err => {
+        setSaving(false);
+        setErrors({ onSave: err.message });
+      });
     return false;
   };
 
-  return (
+  return authors.length === 0 || courses.length === 0 ? (
+    <Spinner />
+  ) : (
     <CourseForm
       authors={authors}
       course={courseState}
       errors={errorsState}
+      saving={savingState}
       onSave={handleSubmit}
       onChange={handleChange}
     />

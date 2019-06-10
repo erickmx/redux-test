@@ -1,9 +1,11 @@
 import * as courseApi from "@services/courseApi";
+import { beginApiCall, apiCallError } from "./apiStatusActions";
 import {
   CREATE_COURSE,
   LOAD_COURSES_SUCCESS,
   CREATE_COURSE_SUCCESS,
-  UPDATE_COURSE_SUCCESS
+  UPDATE_COURSE_SUCCESS,
+  DELETE_COURSE_OPTIMISTIC
 } from "../types/coursesTypes";
 
 export const createCourse = course => ({
@@ -26,21 +28,29 @@ const updateCourseSuccess = course => ({
   course
 });
 
+const deleteCourseOptimistic = course => ({
+  type: DELETE_COURSE_OPTIMISTIC,
+  course
+});
+
 // thunks
 
 export const loadCourses = () => dispatch => {
+  dispatch(beginApiCall());
   return courseApi
     .getCourses()
     .then(courses => {
       dispatch(loadCoursesSuccess(courses));
     })
     .catch(err => {
+      dispatch(apiCallError());
       throw err;
     });
 };
 
 export const saveCourse = course => {
   return (dispatch, getState) => {
+    dispatch(beginApiCall());
     return courseApi
       .saveCourse(course)
       .then(savedCourse => {
@@ -48,6 +58,14 @@ export const saveCourse = course => {
           ? dispatch(updateCourseSuccess(savedCourse))
           : dispatch(createCourseSuccess(savedCourse));
       })
-      .catch(err => {});
+      .catch(err => {
+        dispatch(apiCallError());
+        throw err;
+      });
   };
+};
+
+export const deleteCourse = course => dispatch => {
+  dispatch(deleteCourseOptimistic(course));
+  return courseApi.deleteCourse(course.id);
 };

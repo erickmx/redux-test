@@ -1,8 +1,8 @@
 import React from "react";
-import { arrayOf, shape, number, string } from "prop-types";
+import { arrayOf, shape, number, string, func } from "prop-types";
 import { Link } from "react-router-dom";
 
-const CourseList = ({ courses }) => (
+const CourseList = ({ courses, handleDeleteClick }) => (
   <table className="table">
     <thead>
       <tr>
@@ -10,6 +10,7 @@ const CourseList = ({ courses }) => (
         <th>Title</th>
         <th>Author</th>
         <th>Category</th>
+        <th />
       </tr>
     </thead>
     <tbody>
@@ -29,6 +30,15 @@ const CourseList = ({ courses }) => (
             </td>
             <td>{course.authorName}</td>
             <td>{course.category}</td>
+            <td>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => handleDeleteClick(course)}
+                type="button"
+              >
+                Delete
+              </button>
+            </td>
             <td />
           </tr>
         );
@@ -38,6 +48,7 @@ const CourseList = ({ courses }) => (
 );
 
 CourseList.propTypes = {
+  handleDeleteClick: func.isRequired,
   courses: arrayOf(
     shape({
       id: number.isRequired,
